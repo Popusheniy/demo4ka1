@@ -1,6 +1,7 @@
 package com.example.demo4ka.screens.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +38,7 @@ class MainFragment : Fragment() {
         initialization()
     }
     private fun initialization(){
-        mAdapter = MainAdapter()
+        mAdapter = MainAdapter(requireActivity())
         mRecyclerView = mBinding.recyclerView
         mRecyclerView.adapter = mAdapter
         mObserverList = Observer {
@@ -49,7 +50,10 @@ class MainFragment : Fragment() {
         mBinding.btnAddNote.setOnClickListener{
             APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_addNoteFragment)
         }
-
+        mAdapter.onNoteItemClickListener = {
+            mViewModel.editItem(it)
+            Log.d("ListLog", "$it")
+        }
     }
 
     override fun onDestroyView() {

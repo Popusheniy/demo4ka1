@@ -13,7 +13,7 @@ import com.example.demo4ka.utilits.*
 
 class StartFragment : Fragment() {
 
-    private var _binding:FragmentStartBinding? = null
+    private var _binding: FragmentStartBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mViewModel: StartFragmentViewModel
 
@@ -30,33 +30,34 @@ class StartFragment : Fragment() {
         super.onStart()
         initialization()
     }
+
     private fun initialization() {
         mViewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
-        mBinding.btnRoom.setOnClickListener{
-mViewModel.initDatabase(TYPE_ROOM){
-    APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
-}
+        mBinding.btnRoom.setOnClickListener {
+            mViewModel.initDatabase(TYPE_ROOM) {
+                APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+            }
         }
 
-        mBinding.btnFirebase.setOnClickListener{
-        mBinding.inputPassword.visibility = View.VISIBLE
-        mBinding.inputEmail.visibility = View.VISIBLE
-        mBinding.btnLogin.visibility = View.VISIBLE
-           mBinding.btnLogin.setOnClickListener {
-               val inputEmail = mBinding.inputEmail.text.toString()
-               val inputPassword = mBinding.inputPassword.text.toString()
-               if (inputEmail.isNotEmpty() && inputPassword.isNotEmpty()) {
-                   EMAIL = inputEmail
-                   PASSWORD = inputPassword
+        mBinding.btnFirebase.setOnClickListener {
+            mBinding.inputPassword.visibility = View.VISIBLE
+            mBinding.inputEmail.visibility = View.VISIBLE
+            mBinding.btnLogin.visibility = View.VISIBLE
+            mBinding.btnLogin.setOnClickListener {
+                val inputEmail = mBinding.inputEmail.text.toString()
+                val inputPassword = mBinding.inputPassword.text.toString()
+//                if (inputEmail.isNotEmpty() && inputPassword.isNotEmpty()) {
+                    EMAIL = "gamenixcoc@gmail.com"
+                    PASSWORD = "sosiska"
 
-                   mViewModel.initDatabase(TYPE_FIREBASE) {
+                    mViewModel.initDatabase(TYPE_FIREBASE) {
 
-                       APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
-                   }
-               } else {
-                   showToast(getString(R.string.toast_wrong_enter))
-               }
-           }
+                        APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+                    }
+//                } else {
+//                    showToast(getString(R.string.toast_wrong_enter))
+//                }
+            }
         }
 
     }

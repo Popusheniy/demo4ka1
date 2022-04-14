@@ -13,4 +13,5 @@
     <string name="start_btn_login">Login</string>
     <string name="toast_wrong_enter">Введите данные</string>
     <string name="btn_add_prb">+</string>
+    <string name="counter_text">Людей с такой же проблемой: %s</string>
 </resources>

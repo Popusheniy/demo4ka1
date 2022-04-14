@@ -1,26 +1,28 @@
 package com.example.demo4ka.screens.main
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demo4ka.R
+import com.example.demo4ka.databinding.NoteItemBinding
 import com.example.demo4ka.model.AppNote
-
 
 
 private var mListNotes = emptyList<AppNote>()
 
-class MainAdapter:RecyclerView.Adapter<MainAdapter.MainHolder>(){
-    class MainHolder(view:View):RecyclerView.ViewHolder(view){
-        val nameNote:TextView = view.findViewById(R.id.item_note_name)
-        val textNote:TextView = view.findViewById(R.id.item_note_text)
+class MainAdapter(private val context:Context) : RecyclerView.Adapter<MainAdapter.MainHolder>() {
+    class MainHolder(val binding: NoteItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
     }
 
+    var onNoteItemClickListener: ((AppNote) -> Unit)? = null
+
     override fun onViewAttachedToWindow(holder: MainHolder) {
-      //  super.onViewAttachedToWindow(holder)
-        holder.itemView.setOnClickListener{
+        //  super.onViewAttachedToWindow(holder)
+        holder.itemView.setOnClickListener {
             MainFragment.click(mListNotes[holder.adapterPosition])
         }
     }
@@ -32,18 +34,30 @@ class MainAdapter:RecyclerView.Adapter<MainAdapter.MainHolder>(){
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false)
-        return MainHolder(view)
+        val binding = NoteItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return MainHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
-       holder.textNote.text = mListNotes[position].text
-        holder.nameNote.text = mListNotes[position].name
+        val binding = holder.binding
+        val note = mListNotes[position]
+        val troubleStr = context.resources.getString(R.string.counter_text)
+        binding.itemNoteName.text = note.name
+        binding.itemNoteText.text = note.text
+        binding.btnCounter.setOnClickListener {
+            onNoteItemClickListener?.invoke(note)
+        }
+        binding.counter.text = String.format(troubleStr, note.troubleCount)
+
     }
 
     override fun getItemCount(): Int = mListNotes.size
 
-    fun setList(list:List<AppNote>){
+    fun setList(list: List<AppNote>) {
         mListNotes = list
         notifyDataSetChanged()
     }

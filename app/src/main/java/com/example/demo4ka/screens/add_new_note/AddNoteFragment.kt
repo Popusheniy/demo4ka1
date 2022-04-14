@@ -40,7 +40,7 @@ class AddNoteFragment : Fragment() {
             if(name.isEmpty()) {
                 showToast(getString(R.string.toast_enter_name))
             } else {
-                mViewModel.insert(AppNote(name = name, text = text)){
+                mViewModel.insert(AppNote(name = name, text = text, troubleCount = 1)){
                     APP_ACTIVITY.navController.navigate(R.id.action_addNoteFragment_to_mainFragment)
                 }
             }

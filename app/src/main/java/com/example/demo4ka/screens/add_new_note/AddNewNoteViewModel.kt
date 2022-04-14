@@ -9,13 +9,13 @@ import io.reactivex.internal.operators.single.SingleDoOnSuccess
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AddNewNoteViewModel (application: Application):AndroidViewModel(application){
+class AddNewNoteViewModel(application: Application) : AndroidViewModel(application) {
 
-fun insert(note:AppNote,onSuccess:()->Unit) =
-    viewModelScope .launch( Dispatchers.Main) {
-        REPOSITORY.insert(note){
-            onSuccess()
+    fun insert(note: AppNote, onSuccess: () -> Unit) =
+        viewModelScope.launch(Dispatchers.Main) {
+            REPOSITORY.insert(note) {
+                onSuccess()
+            }
         }
-    }
 
 }

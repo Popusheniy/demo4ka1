@@ -16,4 +16,8 @@ class AppRoomRepository(private val appRoomDao: AppRoomDao):DatabaseRepository {
         appRoomDao.delete(note)
         onSuccess()
     }
+
+    override suspend fun editNote(note: AppNote, onSuccess: () -> Unit) {
+
+    }
 }
