@@ -27,6 +27,7 @@ class AppFirebaseRepository : DatabaseRepository {
         mapNote[ID_FIREBASE] = idNote
         mapNote[NAME] = note.name
         mapNote[TEXT] = note.text
+        mapNote[TEXT2] = note.text2
         mapNote[TROUBLECOUNT] = note.troubleCount
 
         mDatabaseReference.child(idNote)
@@ -41,6 +42,7 @@ class AppFirebaseRepository : DatabaseRepository {
         mapNote[ID_FIREBASE] = idNote
         mapNote[NAME] = note.name
         mapNote[TEXT] = note.text
+        mapNote[TEXT2] = note.text2
         mapNote[TROUBLECOUNT] = note.troubleCount
 
         mDatabaseReference.child(idNote)

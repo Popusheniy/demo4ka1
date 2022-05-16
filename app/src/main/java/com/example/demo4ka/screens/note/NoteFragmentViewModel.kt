@@ -14,5 +14,6 @@ class NoteFragmentViewModel(application: Application):AndroidViewModel(applicati
         REPOSITORY.delete(note){
             onSuccess()
         }
+
     }
 }

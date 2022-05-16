@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".screens.note.NoteFragment">
+    tools:context=".screens.note.NoteFragment"
+    >
 
     <TextView
         android:id="@+id/note_name"
@@ -21,19 +22,69 @@
         android:layout_margin="@dimen/app_margin"
         android:lines="1"
         >
+
     </TextView>
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/note_text"
-        android:textSize="@dimen/app_normal_text"
-        tools:text="Note text"
+        android:layout_width="357dp"
+        android:layout_height="21dp"
+        android:layout_margin="@dimen/app_margin"
+        android:paddingLeft="10dp"
         android:textColor="@color/design_default_color_primary"
-        app:layout_constraintTop_toBottomOf="@id/note_name"
+        android:textSize="@dimen/app_normal_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
-        android:layout_margin="@dimen/app_margin"
-        />
+        app:layout_constraintTop_toBottomOf="@id/note_name"
+        tools:text="Note text" />
 
+    <TextView
+
+        android:id="@+id/note_text2"
+        android:layout_width="357dp"
+        android:layout_height="19dp"
+        android:layout_margin="@dimen/app_margin"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/design_default_color_primary"
+        android:textSize="@dimen/app_normal_text"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/note_text"
+        tools:text="Note text 2" />
+
+    <RadioButton
+        android:id="@+id/prg_btn"
+        android:layout_width="30dp"
+        android:layout_height="42dp"
+        android:layout_gravity="left"
+        android:gravity="left"
+        app:layout_constraintTop_toTopOf="@id/note_text"
+        app:layout_constraintEnd_toStartOf="@+id/note_text"
+        app:layout_constraintLeft_toLeftOf="@id/note_text"
+        tools:layout_editor_absoluteY="43dp" />
+
+    <RadioButton
+        android:id="@+id/prg_btn2"
+        android:layout_width="30dp"
+        android:layout_height="42dp"
+        android:layout_gravity="left"
+        android:gravity="left"
+       app:layout_constraintTop_toTopOf="@id/note_text2"
+        app:layout_constraintEnd_toStartOf="@+id/note_text2"
+        app:layout_constraintLeft_toLeftOf="@id/note_text2"
+        app:layout_constraintTop_toBottomOf="@id/prg_btn" />
+    <ProgressBar
+        android:indeterminate="false"
+        android:indeterminateTint="@color/purple_200"
+        android:id="@+id/prgBar"
+        app:layout_constraintTop_toBottomOf="@id/note_text2"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_margin="5dp"
+        android:paddingLeft="60dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import com.example.demo4ka.R
 import com.example.demo4ka.databinding.FragmentAddNoteBinding
@@ -37,15 +38,24 @@ class AddNoteFragment : Fragment() {
         mBinding.btnAddNote.setOnClickListener{
             val name = mBinding.inputNameNote.text.toString()
             val text = mBinding.inputTextNote.text.toString()
+            val text2 = mBinding.inputTextNote2.text.toString()
             if(name.isEmpty()) {
                 showToast(getString(R.string.toast_enter_name))
             } else {
-                mViewModel.insert(AppNote(name = name, text = text, troubleCount = 1)){
+                mViewModel.insert(AppNote(name = name, text = text, text2 = text2, troubleCount = 1)){
                     APP_ACTIVITY.navController.navigate(R.id.action_addNoteFragment_to_mainFragment)
                 }
             }
         }
+        mBinding.btnNtplus.setOnClickListener{
+          // input_text_note2. =
+            //    if (condition) View.VISIBLE
+           //     else DeprecationLevel.HIDDEN
+            mBinding.inputTextNote2.visibility = View.VISIBLE
+                //    mBinding.btnAddNote.
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,17 +1,21 @@
 package com.example.demo4ka.screens.main
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demo4ka.R
 import com.example.demo4ka.databinding.FragmentMainBinding
 import com.example.demo4ka.model.AppNote
+import com.example.demo4ka.screens.note.NoteFragment
 import com.example.demo4ka.utilits.APP_ACTIVITY
 
 
@@ -24,13 +28,21 @@ class MainFragment : Fragment() {
     private lateinit var mAdapter: MainAdapter
     private lateinit var mObserverList:Observer<List<AppNote>>
     private var counter: Int = 0
+    private var progressBar: ProgressBar? = null
+    private var i = 0
+    private var txtView: TextView? = null
+    private val handler = Handler()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMainBinding.inflate(layoutInflater, container, false)
         // Inflate the layout for this fragment
-        return mBinding.root
+
+
+      return mBinding.root
+
     }
 
     override fun onStart() {
@@ -54,7 +66,13 @@ class MainFragment : Fragment() {
             mViewModel.editItem(it)
             Log.d("ListLog", "$it")
         }
+
+
+
+
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

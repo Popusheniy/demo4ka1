@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/app_margin"
     app:cardCornerRadius="@dimen/card_corner_radius"
-    app:cardElevation="@dimen/card_elevation_radius">
+    app:cardElevation="@dimen/card_elevation_radius"
+   >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -32,11 +33,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/app_margin"
+            android:layout_marginStart="16dp"
             android:textColor="@color/design_default_color_primary"
             android:textSize="@dimen/app_normal_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/item_note_name"
+            app:layout_constraintVertical_bias="0.065"
             tools:text="Note text" />
 
         <Button
@@ -50,6 +53,20 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
+
+            android:id="@+id/item_note_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/design_default_color_primary"
+            android:textSize="@dimen/app_normal_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btn_counter"
+            app:layout_constraintStart_toStartOf="@+id/item_note_text"
+            app:layout_constraintTop_toBottomOf="@+id/item_note_text"
+            tools:text="Note text" />
+        <TextView
             android:id="@+id/counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,8 +74,9 @@
             android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/btn_counter"
-            app:layout_constraintStart_toStartOf="@+id/item_note_text"
-            app:layout_constraintTop_toBottomOf="@+id/item_note_text"
-            tools:text="Text" />
+            app:layout_constraintStart_toStartOf="@+id/item_note_text2"
+            app:layout_constraintTop_toBottomOf="@+id/item_note_text2"
+            tools:text="Пользователей с аналогичной проблемой :" />
+        
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

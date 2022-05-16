@@ -22,14 +22,38 @@
         tools:ignore="LabelFor"
         style="@style/edit_text"
         android:autofillHints="" />
+    <EditText
+        android:visibility="invisible"
+        android:id="@+id/input_text_note2"
+        app:layout_constraintTop_toBottomOf="@id/input_text_note"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="LabelFor"
+        style="@style/edit_text"
+        android:autofillHints="" />
+
+    <Button
+        android:onClick="clickHandlerFunction"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/btn_ntplus"
+        android:text="+"
+        android:textColor="@color/black"
+        android:textSize="10dp"
+        tools:layout_editor_absoluteX="371dp"
+        tools:layout_editor_absoluteY="61dp" />
+
     <Button
         android:id="@+id/btn_add_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_add_note"
-        app:layout_constraintTop_toBottomOf="@id/input_text_note"
+        app:layout_constraintTop_toBottomOf="@id/input_text_note2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/app_margin"
         />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ data class AppNote (
         @PrimaryKey(autoGenerate = true) val id:Int  = 0,
         @ColumnInfo val name:String = "",
         @ColumnInfo val text:String = "",
+        @ColumnInfo val text2:String = "",
         @ColumnInfo val idFirebase:String = "",
         @ColumnInfo val troubleCount: Int = 1
 
