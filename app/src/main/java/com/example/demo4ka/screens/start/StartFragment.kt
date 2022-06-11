@@ -46,7 +46,7 @@ class StartFragment : Fragment() {
             mBinding.btnLogin.setOnClickListener {
                 val inputEmail = mBinding.inputEmail.text.toString()
                 val inputPassword = mBinding.inputPassword.text.toString()
-//                if (inputEmail.isNotEmpty() && inputPassword.isNotEmpty()) {
+               if (inputEmail.isNotEmpty() && inputPassword.isNotEmpty()) {
                     EMAIL = "gamenixcoc@gmail.com"
                     PASSWORD = "sosiska"
 
@@ -54,9 +54,9 @@ class StartFragment : Fragment() {
 
                         APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
                     }
-//                } else {
-//                    showToast(getString(R.string.toast_wrong_enter))
-//                }
+                } else {
+                   showToast(getString(R.string.toast_wrong_enter))
+               }
             }
         }
 

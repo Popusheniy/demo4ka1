@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import com.example.demo4ka.R
 import com.example.demo4ka.databinding.FragmentAddNoteBinding
@@ -52,6 +51,7 @@ class AddNoteFragment : Fragment() {
             //    if (condition) View.VISIBLE
            //     else DeprecationLevel.HIDDEN
             mBinding.inputTextNote2.visibility = View.VISIBLE
+            mBinding.btnNtplus.visibility= View.INVISIBLE
                 //    mBinding.btnAddNote.
         }
     }

@@ -13,17 +13,26 @@ import com.example.demo4ka.R
 import com.example.demo4ka.databinding.FragmentMainBinding
 import com.example.demo4ka.databinding.FragmentNoteBinding
 import com.example.demo4ka.model.AppNote
+import com.example.demo4ka.screens.edit_note.EditNoteViewModel
 import com.example.demo4ka.screens.main.MainAdapter
 import com.example.demo4ka.screens.main.MainFragmentViewModel
 import com.example.demo4ka.utilits.APP_ACTIVITY
+import com.example.demo4ka.utilits.ID_FIREBASE
+import com.example.demo4ka.utilits.REF_DATABASE
+import com.example.demo4ka.utilits.showToast
+import kotlin.math.absoluteValue
+import kotlin.math.min
+import kotlin.math.roundToInt
+
 
 class NoteFragment : Fragment() {
-    private var _binding: FragmentNoteBinding?=null
+        private var _binding: FragmentNoteBinding?=null
         private val mBinding get() = _binding!!
         private lateinit var mViewModel: NoteFragmentViewModel
+        private lateinit var eViewModel: EditNoteViewModel
         private lateinit var mCurrentNote:AppNote
-    private var progressStatus = 0
-    private var handler = Handler()
+        private var handler = Handler()
+        private var progress = 0
 
 
 
@@ -48,66 +57,72 @@ class NoteFragment : Fragment() {
             mBinding.noteText.text = mCurrentNote.text
             mBinding.noteName.text = mCurrentNote.name
             mBinding.noteText2.text = mCurrentNote.text2
+            mBinding.prgBar.progress = mCurrentNote.progressStatus
+
+
+
             mViewModel = ViewModelProvider(this).get(NoteFragmentViewModel::class.java)
+
+            mBinding.prgBar.progress = 0
 
             mBinding.prgBtn.setOnClickListener {
 
               //      progressBar.progress   = progressStatus + 50
-                Thread(Runnable {
-                    while (progressStatus < 100){
-                        // update progress status
-                        progressStatus +50
+               if (progress <50){
+                   progress +=50
+                   mBinding.prgBar.progress = progress
+               }else{
+                   progress = 100
 
-                        // sleep the thread for 100 milliseconds
-                        Thread.sleep(100)
+                   mBinding.prgBar.progress = progress
 
-                        // update the progress bar
-                        handler.post {
 
-                            mBinding.prgBar.progress = progressStatus+50
-
-                        }
-                    }
-                }).start()
+                }
 
             }
 
             mBinding.prgBtn2.setOnClickListener{
-                Thread(Runnable {
-                    while (progressStatus < 100){
-                        // update progress status
-                        progressStatus +50
 
-                        // sleep the thread for 100 milliseconds
-                        Thread.sleep(100)
+                if (progress <50){
+                    progress +=50
+                    mBinding.prgBar.progress = progress
+                }else{
+                    progress = 100
 
-                        // update the progress bar
-                        handler.post {
+                    mBinding.prgBar.progress = progress
 
-                            mBinding.prgBar.progress = progressStatus+50
 
-                        }
-                    }
-                }).start()
+                }
+                }
 
-            }
-            return(progressStatus)
+return(mBinding.prgBar.progress)
         }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.note_action_menu, menu)
+        inflater.inflate(R.menu.edit_note_action_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.btn_delete ->{
-            mViewModel.delete(mCurrentNote){
-            APP_ACTIVITY.navController.navigate(R.id.action_noteFragment_to_mainFragment)
-            }
+        when(item.itemId) {
+            R.id.btn_delete -> {
+                mViewModel.delete(mCurrentNote) {
+                    APP_ACTIVITY.navController.navigate(R.id.action_noteFragment_to_mainFragment)
+                }
             }
         }
+        when (item.itemId) {
+            R.id.btn_edit -> {
+                mViewModel.editNote(mCurrentNote){
+              APP_ACTIVITY.navController.navigate(R.id.action_noteFragment_to_editNoteFragment)
+                }
+            }
+        }
+
         return super.onOptionsItemSelected(item)
     }
+
+
+
 
     override fun onDestroyView() {
             super.onDestroyView()

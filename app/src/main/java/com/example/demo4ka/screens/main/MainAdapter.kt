@@ -49,6 +49,8 @@ class MainAdapter(private val context:Context) : RecyclerView.Adapter<MainAdapte
         binding.itemNoteName.text = note.name
         binding.itemNoteText.text = note.text
         binding.itemNoteText2.text = note.text2
+
+
         binding.btnCounter.setOnClickListener {
             onNoteItemClickListener?.invoke(note)
         }

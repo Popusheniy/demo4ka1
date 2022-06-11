@@ -14,4 +14,8 @@
     <string name="toast_wrong_enter">Введите данные</string>
     <string name="btn_add_prb">+</string>
     <string name="counter_text">Людей с такой же проблемой: %s</string>
+    <string name="change_note_btn">Изменить</string>
+    <string name="edit_note_name">Введите название заметки</string>
+    <string name="edit_note_text">Введите текст заметки</string>
+    <string name="edit_note_text2">Введите текст заметки</string>
 </resources>

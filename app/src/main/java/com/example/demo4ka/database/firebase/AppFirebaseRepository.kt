@@ -15,28 +15,33 @@ import com.google.firebase.database.FirebaseDatabase
 
 class AppFirebaseRepository : DatabaseRepository {
 
-    private val mAuth = FirebaseAuth.getInstance()
-    private val mDatabaseReference = FirebaseDatabase.getInstance().reference
-        .child(mAuth.currentUser?.uid.toString())
+
+
+    init {
+        AUTH = FirebaseAuth.getInstance()
+    }
+
     override val allNotes: LiveData<List<AppNote>> = AllNotesLiveData()
 
-
     override suspend fun insert(note: AppNote, onSuccess: () -> Unit) {
-        val idNote = mDatabaseReference.push().key.toString()
+        val idNote = REF_DATABASE.push().key.toString()
         val mapNote = hashMapOf<String, Any>()
         mapNote[ID_FIREBASE] = idNote
         mapNote[NAME] = note.name
         mapNote[TEXT] = note.text
         mapNote[TEXT2] = note.text2
         mapNote[TROUBLECOUNT] = note.troubleCount
+        mapNote[PROGRESS] = note.progressStatus
 
-        mDatabaseReference.child(idNote)
+
+
+        REF_DATABASE.child(idNote)
             .updateChildren(mapNote)
             .addOnSuccessListener { onSuccess() }
             .addOnFailureListener { showToast(it.message.toString()) }
     }
 
-    override suspend fun editNote(note: AppNote, onSuccess: () -> Unit) {
+    override suspend fun update(note: AppNote, onSuccess: () -> Unit) {
         val idNote = note.idFirebase
         val mapNote = hashMapOf<String, Any>()
         mapNote[ID_FIREBASE] = idNote
@@ -44,8 +49,9 @@ class AppFirebaseRepository : DatabaseRepository {
         mapNote[TEXT] = note.text
         mapNote[TEXT2] = note.text2
         mapNote[TROUBLECOUNT] = note.troubleCount
+        mapNote[PROGRESS] = note.progressStatus
 
-        mDatabaseReference.child(idNote)
+        REF_DATABASE.child(idNote)
             .updateChildren(mapNote)
             .addOnSuccessListener { onSuccess() }
             .addOnFailureListener { showToast(it.message.toString()) }
@@ -53,22 +59,33 @@ class AppFirebaseRepository : DatabaseRepository {
 
 
     override suspend fun delete(note: AppNote, onSuccess: () -> Unit) {
+    REF_DATABASE.child(note.idFirebase).removeValue()
+        .addOnSuccessListener { onSuccess() }
+        .addOnFailureListener { showToast(it.message.toString()) }
+    }
+
+    override suspend fun editNote(note: AppNote, onSuccess: () -> Unit) {
 
     }
 
     override fun connectToDatabase(onSuccess: () -> Unit, onFail: (String) -> Unit) {
-        mAuth.signInWithEmailAndPassword(EMAIL, PASSWORD)
+        AUTH.signInWithEmailAndPassword(EMAIL, PASSWORD)
             .addOnSuccessListener { onSuccess() }
             .addOnFailureListener {
-                mAuth.createUserWithEmailAndPassword(EMAIL, PASSWORD)
+                AUTH.createUserWithEmailAndPassword(EMAIL, PASSWORD)
                     .addOnSuccessListener { onSuccess() }
                     .addOnFailureListener { onFail(it.message.toString()) }
 
             }
+
+        CURRENT_ID = AUTH.currentUser?.uid.toString()
+       REF_DATABASE =  FirebaseDatabase.getInstance().reference
+            .child(CURRENT_ID)
     }
 
 
+
     override fun signOut() {
-        mAuth.signOut()
+        AUTH.signOut()
     }
 }

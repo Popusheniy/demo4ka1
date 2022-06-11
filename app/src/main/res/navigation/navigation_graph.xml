@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_noteFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_noteFragment_to_editNoteFragment"
+            app:destination="@id/editNoteFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNoteFragment"
@@ -45,6 +48,21 @@
         tools:layout="@layout/fragment_add_note" >
         <action
             android:id="@+id/action_addNoteFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editNoteFragment"
+        android:name="com.example.demo4ka.screens.edit_note.EditNoteFragment"
+        android:label="fragment_edit_note"
+        tools:layout="@layout/fragment_edit_note" >
+        <action
+            android:id="@+id/action_editNoteFragment_self"
+            app:destination="@id/editNoteFragment" />
+        <action
+            android:id="@+id/action_editNoteFragment_to_noteFragment"
+            app:destination="@id/noteFragment" />
+        <action
+            android:id="@+id/action_editNoteFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
 </navigation>

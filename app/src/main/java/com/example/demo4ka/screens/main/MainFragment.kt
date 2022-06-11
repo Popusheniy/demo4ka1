@@ -3,9 +3,7 @@ package com.example.demo4ka.screens.main
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -50,6 +48,7 @@ class MainFragment : Fragment() {
         initialization()
     }
     private fun initialization(){
+        setHasOptionsMenu(true)
         mAdapter = MainAdapter(requireActivity())
         mRecyclerView = mBinding.recyclerView
         mRecyclerView.adapter = mAdapter
@@ -66,9 +65,6 @@ class MainFragment : Fragment() {
             mViewModel.editItem(it)
             Log.d("ListLog", "$it")
         }
-
-
-
 
     }
 
@@ -87,5 +83,18 @@ class MainFragment : Fragment() {
             bundle.putSerializable("note",note)
             APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
         }
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.exit_action_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.btn_exit ->{
+                mViewModel.signOut()
+                    APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_startFragment)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
