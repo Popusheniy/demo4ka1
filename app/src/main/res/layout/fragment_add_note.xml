@@ -1,50 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/obw"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".screens.add_new_note.AddNoteFragment">
 
-<EditText
-    android:hint="Введите название заметки"
-    android:id="@+id/input_name_note"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    tools:ignore="LabelFor"
-    style="@style/edit_text"
-    android:autofillHints="" />
     <EditText
-        android:hint="Введите текст заметки"
-        android:id="@+id/input_text_note"
-        app:layout_constraintTop_toBottomOf="@id/input_name_note"
-        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/input_name_note"
+        android:autofillHints=""
+        android:hint="Введите название заметки"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="LabelFor"
-        style="@style/edit_text"
-        android:autofillHints="" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="LabelFor" />
+
     <EditText
+        android:id="@+id/input_text_note"
+        style="@style/edit_text"
+        android:autofillHints=""
+        android:hint="Введите текст заметки"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_name_note"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/input_text_note2"
+        style="@style/edit_text"
+        android:autofillHints=""
         android:hint="Введите текст заметки"
         android:visibility="invisible"
-        android:id="@+id/input_text_note2"
-        app:layout_constraintTop_toBottomOf="@id/input_text_note"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="LabelFor"
-        style="@style/edit_text"
-        android:autofillHints="" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_text_note"
+        tools:ignore="LabelFor" />
 
     <Button
         android:id="@+id/btn_ntplus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:onClick="clickHandlerFunction"
         android:text="Добавить текстовое поле"
         android:textSize="10dp"
         android:visibility="visible"
-    android:layout_margin="16dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_add_note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,13 +56,11 @@
         android:id="@+id/btn_add_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_add_note"
-        app:layout_constraintTop_toBottomOf="@id/input_text_note2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/app_margin"
-        />
-
+        android:text="@string/btn_add_note"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_text_note2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,13 +19,8 @@ class MainAdapter(private val context:Context) : RecyclerView.Adapter<MainAdapte
 
     private var mListNotes = emptyList<AppNote>()
     var onNoteItemClickListener: ((AppNote) -> Unit)? = null
+    var onNoteItemEditListener: ((AppNote) -> Unit)? = null
 
-    override fun onViewAttachedToWindow(holder: MainHolder) {
-        //  super.onViewAttachedToWindow(holder)
-        holder.itemView.setOnClickListener {
-            MainFragment.click(mListNotes[holder.adapterPosition])
-        }
-    }
 
     override fun onViewDetachedFromWindow(holder: MainHolder) {
         holder.itemView.setOnClickListener(null)
@@ -49,8 +44,9 @@ class MainAdapter(private val context:Context) : RecyclerView.Adapter<MainAdapte
         binding.itemNoteName.text = note.name
         binding.itemNoteText.text = note.text
         binding.itemNoteText2.text = note.text2
-
-
+        binding.root.setOnClickListener {
+            onNoteItemEditListener?.invoke(note)
+        }
         binding.btnCounter.setOnClickListener {
             onNoteItemClickListener?.invoke(note)
         }

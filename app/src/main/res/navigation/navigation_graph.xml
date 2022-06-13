@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_mainFragment_to_noteFragment"
             app:destination="@id/noteFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_editNoteFragment"
+            app:destination="@id/editNoteFragment" />
     </fragment>
     <fragment
         android:id="@+id/startFragment"
@@ -64,5 +67,8 @@
         <action
             android:id="@+id/action_editNoteFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <argument
+            android:name="note"
+            app:argType="com.example.demo4ka.model.AppNote" />
     </fragment>
 </navigation>

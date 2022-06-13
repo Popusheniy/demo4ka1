@@ -12,18 +12,10 @@ import kotlinx.coroutines.launch
 
 class EditNoteViewModel(application: Application) : AndroidViewModel(application) {
 
-
-
-
-
-
-    fun editNote(appNote: AppNote) {
-    //    viewModelScope.launch(Dispatchers.Main) {
-         //   val edit = appNote.copy(troubleCount = appNote.troubleCount, name = appNote.name, text = appNote.text, text2 = appNote.text2)
-       //     REPOSITORY.editNote(edit) {}
-        viewModelScope.launch(Dispatchers.Main) {
+    fun editNote(appNote: AppNote, onSuccess: () -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
             REPOSITORY.edit(appNote) {
-                appNote.copy(troubleCount = appNote.troubleCount, name = appNote.name, text = appNote.text, text2 = appNote.text2)
+                onSuccess()
             }
         }
     }

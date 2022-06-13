@@ -1,28 +1,27 @@
 package com.example.demo4ka.screens.edit_note
 
-import androidx.fragment.app.Fragment
+
 import android.os.Bundle
 import android.view.*
-
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.example.demo4ka.R
 import com.example.demo4ka.databinding.FragmentEditNoteBinding
 import com.example.demo4ka.model.AppNote
-import com.example.demo4ka.screens.main.MainAdapter
 import com.example.demo4ka.utilits.APP_ACTIVITY
 import com.example.demo4ka.utilits.showToast
-
-
 import com.google.firebase.database.DatabaseReference
 
 
-
-class EditNoteFragment: Fragment() {
+class EditNoteFragment : Fragment() {
     private var _binding: FragmentEditNoteBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mViewModel: EditNoteViewModel
     private lateinit var database: DatabaseReference
-//    private lateinit var eAdapter: EditingNoteAdapter
+
+    private val args by navArgs<EditNoteFragmentArgs>()
+    //    private lateinit var eAdapter: EditingNoteAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,45 +32,54 @@ class EditNoteFragment: Fragment() {
 
     override fun onStart() {
         super.onStart()
+        setDefaultValues()
         initialization()
 
+    }
+
+    private fun setDefaultValues(){
+        val note = args.note
+        with(mBinding){
+            inputNameNote.setText(note.name)
+            inputTextNote.setText(note.text)
+            inputTextNote2.setText(note.text2)
+        }
     }
 
     private fun initialization() {
         mViewModel = ViewModelProvider(this).get(EditNoteViewModel::class.java)
 
-
-
-        mBinding.btnEditNote2.setOnClickListener{
-
-        //  eAdapter = EditingNoteAdapter(requireActivity())
+        mBinding.btnEditNote2.setOnClickListener {
             val name = mBinding.inputNameNote.text.toString()
             val text = mBinding.inputTextNote.text.toString()
             val text2 = mBinding.inputTextNote2.text.toString()
 
-            if (name.isNotEmpty())
-            {
-                APP_ACTIVITY.navController.navigate(R.id.action_editNoteFragment_to_mainFragment)
-            mViewModel.editNote(AppNote(name = name, text = text, text2 = text2, troubleCount = 1))
-            } else{
-            showToast(getString(R.string.toast_enter_name))
+            if (name.isNotEmpty() && text.isNotEmpty()) {
+                mViewModel.editNote(args.note.copy(name = name, text = text, text2 = text2)){
+                    APP_ACTIVITY.navController.popBackStack()
+                }
+            } else {
+                showToast(getString(R.string.toast_enter_name))
+            }
         }
-       }
 
-        mBinding.btnNtplus.setOnClickListener{
+        mBinding.btnNtplus.setOnClickListener {
             // input_text_note2. =
             //    if (condition) View.VISIBLE
             //     else DeprecationLevel.HIDDEN
             mBinding.inputTextNote2.visibility = View.VISIBLE
-            mBinding.btnNtplus.visibility= View.INVISIBLE
+            mBinding.btnNtplus.visibility = View.INVISIBLE
             //    mBinding.btnAddNote.
         }
-        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.add_column_action_menu, menu)
 
-    }override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.btn_add -> {
                 mBinding.inputTextNote2.visibility = View.VISIBLE
 
@@ -80,7 +88,6 @@ class EditNoteFragment: Fragment() {
 
         return super.onOptionsItemSelected(item)
     }
-
 
 
 }

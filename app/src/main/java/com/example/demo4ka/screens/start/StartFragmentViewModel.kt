@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.example.demo4ka.database.firebase.AppFirebaseRepository
 import com.example.demo4ka.utilits.REPOSITORY
-import com.example.demo4ka.utilits.TYPE_FIREBASE
 import com.example.demo4ka.utilits.showToast
 
 class StartFragmentViewModel(application: Application) : AndroidViewModel(application) {

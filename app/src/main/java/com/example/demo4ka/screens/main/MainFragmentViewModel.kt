@@ -18,6 +18,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+
     fun update(appNote: AppNote) {
         viewModelScope.launch(Dispatchers.Main) {
             REPOSITORY.update(appNote) {

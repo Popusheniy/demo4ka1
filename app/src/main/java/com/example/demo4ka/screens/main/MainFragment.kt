@@ -50,8 +50,7 @@ class MainFragment : Fragment() {
         mAdapter = MainAdapter(requireActivity())
         mRecyclerView = mBinding.recyclerView
         mRecyclerView.adapter = mAdapter
-        mViewModel.allNotes.observe(viewLifecycleOwner){
-            Log.d("ListLog", it.toString())
+        mViewModel.allNotes.observe(viewLifecycleOwner) {
             mAdapter.setList(it)
         }
         mBinding.btnAddNote.setOnClickListener {
@@ -59,9 +58,12 @@ class MainFragment : Fragment() {
         }
         mAdapter.onNoteItemClickListener = {
             mViewModel.editItem(it)
-            Log.d("ListLog", "$it")
         }
-
+        mAdapter.onNoteItemEditListener = {
+            APP_ACTIVITY.navController.navigate(
+                MainFragmentDirections.actionMainFragmentToEditNoteFragment(it)
+            )
+        }
     }
 
 
@@ -71,13 +73,6 @@ class MainFragment : Fragment() {
         mRecyclerView.adapter = null
     }
 
-    companion object {
-        fun click(note: AppNote) {
-            val bundle = Bundle()
-            bundle.putSerializable("note", note)
-            APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
-        }
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.exit_action_menu, menu)
