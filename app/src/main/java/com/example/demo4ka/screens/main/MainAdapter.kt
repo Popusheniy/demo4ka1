@@ -11,13 +11,13 @@ import com.example.demo4ka.databinding.NoteItemBinding
 import com.example.demo4ka.model.AppNote
 
 
-private var mListNotes = emptyList<AppNote>()
 
 class MainAdapter(private val context:Context) : RecyclerView.Adapter<MainAdapter.MainHolder>() {
     class MainHolder(val binding: NoteItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
 
+    private var mListNotes = emptyList<AppNote>()
     var onNoteItemClickListener: ((AppNote) -> Unit)? = null
 
     override fun onViewAttachedToWindow(holder: MainHolder) {

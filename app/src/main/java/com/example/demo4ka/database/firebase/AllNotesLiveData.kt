@@ -1,5 +1,6 @@
 package com.example.demo4ka.database.firebase
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.demo4ka.model.AppNote
 import com.example.demo4ka.utilits.REF_DATABASE
@@ -17,7 +18,6 @@ class AllNotesLiveData: LiveData<List<AppNote>>(){
                 it.getValue(AppNote::class.java)?: AppNote()
             }
         }
-
         override fun onCancelled(error: DatabaseError) {
 
         }

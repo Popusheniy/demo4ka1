@@ -1,10 +1,11 @@
 package com.example.demo4ka.screens.start
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.demo4ka.R
 import com.example.demo4ka.databinding.FragmentStartBinding
@@ -17,49 +18,45 @@ class StartFragment : Fragment() {
     private val mBinding get() = _binding!!
     private lateinit var mViewModel: StartFragmentViewModel
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentStartBinding.inflate(layoutInflater, container, false)
-
         return mBinding.root
     }
 
     override fun onStart() {
         super.onStart()
-        initialization()
-    }
-
-    private fun initialization() {
         mViewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
-        mBinding.btnRoom.setOnClickListener {
-            mViewModel.initDatabase(TYPE_ROOM) {
+        mViewModel.initDatabase()
+        if (AUTH.currentUser != null) {
+            mViewModel.reconnectFirebase {
                 APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
             }
         }
+        initialization()
 
-        mBinding.btnFirebase.setOnClickListener {
-            mBinding.inputPassword.visibility = View.VISIBLE
-            mBinding.inputEmail.visibility = View.VISIBLE
-            mBinding.btnLogin.visibility = View.VISIBLE
-            mBinding.btnLogin.setOnClickListener {
-                val inputEmail = mBinding.inputEmail.text.toString()
-                val inputPassword = mBinding.inputPassword.text.toString()
-               if (inputEmail.isNotEmpty() && inputPassword.isNotEmpty()) {
-                    EMAIL = "gamenixcoc@gmail.com"
-                    PASSWORD = "sosiska"
+    }
 
-                    mViewModel.initDatabase(TYPE_FIREBASE) {
+    private fun initialization() {
+        mBinding.btnLogin.setOnClickListener {
+            val inputEmail = mBinding.inputEmail.text.toString()
+            val inputPassword = mBinding.inputPassword.text.toString()
+//            if (inputEmail.isNotEmpty() && inputPassword.isNotEmpty()) {
+//                EMAIL = inputEmail.trim()
+//                PASSWORD = inputPassword.trim()
+                EMAIL = "gamenixcoc@gmail.com"
+                PASSWORD = "sosiska"
+                mViewModel.signIn {
+                    APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+                }
 
-                        APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
-                    }
-                } else {
-                   showToast(getString(R.string.toast_wrong_enter))
-               }
-            }
+//            } else {
+//                showToast(getString(R.string.toast_wrong_enter))
+//            }
         }
-
     }
 
     override fun onDestroyView() {

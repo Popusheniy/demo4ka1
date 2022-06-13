@@ -13,18 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.demo4ka.R
 import com.example.demo4ka.databinding.FragmentMainBinding
 import com.example.demo4ka.model.AppNote
-import com.example.demo4ka.screens.note.NoteFragment
 import com.example.demo4ka.utilits.APP_ACTIVITY
 
 
 class MainFragment : Fragment() {
 
-    private var _binding:FragmentMainBinding?=null
+    private var _binding: FragmentMainBinding? = null
     private val mBinding get() = _binding!!
-    private lateinit var mViewModel:MainFragmentViewModel
+    private lateinit var mViewModel: MainFragmentViewModel
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: MainAdapter
-    private lateinit var mObserverList:Observer<List<AppNote>>
     private var counter: Int = 0
     private var progressBar: ProgressBar? = null
     private var i = 0
@@ -37,9 +35,7 @@ class MainFragment : Fragment() {
     ): View? {
         _binding = FragmentMainBinding.inflate(layoutInflater, container, false)
         // Inflate the layout for this fragment
-
-
-      return mBinding.root
+        return mBinding.root
 
     }
 
@@ -47,18 +43,18 @@ class MainFragment : Fragment() {
         super.onStart()
         initialization()
     }
-    private fun initialization(){
+
+    private fun initialization() {
+        mViewModel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
         setHasOptionsMenu(true)
         mAdapter = MainAdapter(requireActivity())
         mRecyclerView = mBinding.recyclerView
         mRecyclerView.adapter = mAdapter
-        mObserverList = Observer {
-            val list = it.asReversed()
-            mAdapter.setList(list)
+        mViewModel.allNotes.observe(viewLifecycleOwner){
+            Log.d("ListLog", it.toString())
+            mAdapter.setList(it)
         }
-        mViewModel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
-        mViewModel.allNotes.observe(this,mObserverList)
-        mBinding.btnAddNote.setOnClickListener{
+        mBinding.btnAddNote.setOnClickListener {
             APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_addNoteFragment)
         }
         mAdapter.onNoteItemClickListener = {
@@ -69,30 +65,29 @@ class MainFragment : Fragment() {
     }
 
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        mViewModel.allNotes.removeObserver(mObserverList)
         mRecyclerView.adapter = null
     }
 
-    companion object{
-        fun click(note: AppNote){
+    companion object {
+        fun click(note: AppNote) {
             val bundle = Bundle()
-            bundle.putSerializable("note",note)
+            bundle.putSerializable("note", note)
             APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.exit_action_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.btn_exit ->{
+        when (item.itemId) {
+            R.id.btn_exit -> {
                 mViewModel.signOut()
-                    APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_startFragment)
+                APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_startFragment)
             }
         }
         return super.onOptionsItemSelected(item)

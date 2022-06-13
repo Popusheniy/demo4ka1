@@ -17,15 +17,15 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             REPOSITORY.editNote(editNote) {}
         }
     }
-fun update(appNote: AppNote){
-    viewModelScope.launch(Dispatchers.Main) {
-        REPOSITORY.update(appNote) {
+
+    fun update(appNote: AppNote) {
+        viewModelScope.launch(Dispatchers.Main) {
+            REPOSITORY.update(appNote) {
+            }
         }
-}
 
 
-
-}
+    }
 
     fun signOut() {
         REPOSITORY.signOut()

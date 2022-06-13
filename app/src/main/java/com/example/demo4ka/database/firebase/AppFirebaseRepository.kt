@@ -1,10 +1,5 @@
 package com.example.demo4ka.database.firebase
 
-import android.R.id
-import android.content.Context
-import android.content.Intent
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import com.example.demo4ka.database.DatabaseRepository
 import com.example.demo4ka.model.AppNote
@@ -75,9 +70,9 @@ class AppFirebaseRepository : DatabaseRepository {
 
 
     override suspend fun delete(note: AppNote, onSuccess: () -> Unit) {
-    REF_DATABASE.child(note.idFirebase).removeValue()
-        .addOnSuccessListener { onSuccess() }
-        .addOnFailureListener { showToast(it.message.toString()) }
+        REF_DATABASE.child(note.idFirebase).removeValue()
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { showToast(it.message.toString()) }
     }
 
     override suspend fun editNote(note: AppNote, onSuccess: () -> Unit) {
@@ -105,12 +100,21 @@ class AppFirebaseRepository : DatabaseRepository {
                     .addOnFailureListener { onFail(it.message.toString()) }
 
             }
-
         CURRENT_ID = AUTH.currentUser?.uid.toString()
-       REF_DATABASE =  FirebaseDatabase.getInstance().reference
+        REF_DATABASE = FirebaseDatabase.getInstance().reference
             .child(CURRENT_ID)
     }
 
+    override fun reconnectToDatabase(onSuccess: () -> Unit) {
+        try {
+            CURRENT_ID = AUTH.currentUser?.uid.toString()
+            REF_DATABASE = FirebaseDatabase.getInstance().reference
+                .child(CURRENT_ID)
+            onSuccess()
+        } catch (e:Exception ){
+
+        }
+    }
 
 
     override fun signOut() {

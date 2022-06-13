@@ -12,7 +12,7 @@ interface DatabaseRepository {
     suspend fun update(note: AppNote, onSuccess: () -> Unit)
     suspend fun edit(note: AppNote, onSuccess: () -> Unit)
     fun connectToDatabase(onSuccess: () -> Unit, onFail: (String) -> Unit){}
-
+    fun reconnectToDatabase(onSuccess: () -> Unit){}
     fun signOut(){}
 
 }
