@@ -42,21 +42,21 @@ class EditNoteFragment: Fragment() {
 
 
 
-     //   mBinding.btnEditNote2.setOnClickListener{
-       //    eAdapter = EditingNoteAdapter(requireActivity())
-      //      val name = mBinding.inputNameNote.text.toString()
-      //      val text = mBinding.inputTextNote.text.toString()
-      //      val text2 = mBinding.inputTextNote2.text.toString()
+        mBinding.btnEditNote2.setOnClickListener{
 
-         //   if (name.isNotEmpty())
-          //  {
-      //      mViewModel.update(AppNote(name = name, text = text, text2 = text2, troubleCount = 1)){
-           //     APP_ACTIVITY.navController.navigate(R.id.action_editNoteFragment_to_mainFragment)
-         //   }
-     // } else{
+        //  eAdapter = EditingNoteAdapter(requireActivity())
+            val name = mBinding.inputNameNote.text.toString()
+            val text = mBinding.inputTextNote.text.toString()
+            val text2 = mBinding.inputTextNote2.text.toString()
+
+            if (name.isNotEmpty())
+            {
+                APP_ACTIVITY.navController.navigate(R.id.action_editNoteFragment_to_mainFragment)
+            mViewModel.editNote(AppNote(name = name, text = text, text2 = text2, troubleCount = 1))
+            } else{
             showToast(getString(R.string.toast_enter_name))
- //       }
-  //      }
+        }
+       }
 
         mBinding.btnNtplus.setOnClickListener{
             // input_text_note2. =

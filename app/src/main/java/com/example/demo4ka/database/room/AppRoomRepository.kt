@@ -18,11 +18,17 @@ class AppRoomRepository(private val appRoomDao: AppRoomDao):DatabaseRepository {
     }
 
     override suspend fun editNote(note: AppNote, onSuccess: () -> Unit) {
-
+        appRoomDao.insert(note)
+        onSuccess()
     }
 
     override suspend fun update(note: AppNote, onSuccess: () -> Unit) {
 
+    }
+
+    override suspend fun edit(note: AppNote, onSuccess: () -> Unit) {
+        appRoomDao.insert(note)
+        onSuccess()
     }
 
     override fun signOut() {
